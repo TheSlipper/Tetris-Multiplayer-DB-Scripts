@@ -28,7 +28,8 @@ CREATE TABLE `TetrisMP`.`user_game_data` (
     unranked_wins INT DEFAULT 0,
     unranked_losses INT DEFAULT 0,
     ranked_wins INT DEFAULT 0,
-    ranked_losses INT DEFAULT 0
+    ranked_losses INT DEFAULT 0,
+    elo INT DEFAULT 800
 );
 
 CREATE TABLE `TetrisMP`.`friends` (

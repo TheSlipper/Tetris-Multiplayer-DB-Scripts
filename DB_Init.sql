@@ -24,5 +24,6 @@ INSERT INTO `TetrisMP`.`user_game_data` VALUES (
     0,
     0,
     0,
-    0
+    0,
+    800 -- On default you start with only 800 ELO
 );
