@@ -60,7 +60,8 @@ CREATE TABLE `TetrisMP`.`update_logs` (
 	update_log_id INT AUTO_INCREMENT PRIMARY KEY,
     update_log_header VARCHAR(300) NOT NULL,
     update_log_content TEXT NOT NULL,
-    update_log_author INT NOT NULL
+    update_log_author INT NOT NULL,
+    update_log_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE `TetrisMP`.`user_game_data`ADD FOREIGN KEY (user_id) REFERENCES `TetrisMP`.`users`(user_id);
