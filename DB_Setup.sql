@@ -53,7 +53,8 @@ CREATE TABLE `TetrisMP`.`bans` (
     banned_user_id INT NOT NULL, -- TODO: Foreign key constraint
     banned_date DATE NOT NULL,
     ban_expiration DATE NOT NULL,
-    ban_reason VARCHAR(90) NOT NULL
+    ban_reason VARCHAR(90) NOT NULL,
+    bann_giver_id INT NOT NULL -- TODO: Foreign key constraint
 );
 
 CREATE TABLE `TetrisMP`.`update_logs` (
@@ -64,7 +65,16 @@ CREATE TABLE `TetrisMP`.`update_logs` (
     update_log_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-ALTER TABLE `TetrisMP`.`user_game_data`ADD FOREIGN KEY (user_id) REFERENCES `TetrisMP`.`users`(user_id);
+CREATE TABLE `TetrisMP`.`login_attempts` (
+	login_attempt_id INT AUTO_INCREMENT PRIMARY KEY,
+	login_user_id INT NOT NULL,
+	login_attempt_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	login_attempt_status BOOL NOT NULL,
+	login_attempt_os VARCHAR(100) NOT NULL,
+	login_attempt_build VARCHAR(100) NOT NULL
+);
+
+-- ALTER TABLE `TetrisMP`.`user_game_data`ADD FOREIGN KEY (user_id) REFERENCES `TetrisMP`.`users`(user_id);
 
 ALTER TABLE `TetrisMP`.`friends` ADD FOREIGN KEY (user_id_one) REFERENCES `TetrisMP`.`users`(user_id);
 
@@ -74,6 +84,15 @@ ALTER TABLE `TetrisMP`.`game_histories` ADD FOREIGN KEY (player_id) REFERENCES `
 
 ALTER TABLE `TetrisMP`.`bans` ADD FOREIGN KEY (banned_user_id) REFERENCES `TetrisMP`.`users`(user_id);
 
-ALTER TABLE `TetrisMP`.`user_game_data` ADD FOREIGN KEY (privilege_group) REFERENCES `TetrisMP`.`privilege_groups`(group_id);
+-- ALTER TABLE `TetrisMP`.`user_game_data` ADD FOREIGN KEY (privilege_group) REFERENCES `TetrisMP`.`privilege_groups`(group_id);
 
 ALTER TABLE `TetrisMP`.`update_logs` ADD FOREIGN KEY (update_log_author) REFERENCES `TetrisMP`.`users`(user_id);
+
+ALTER TABLE `user_game_data` ADD CONSTRAINT `user_game_data_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `user_game_data` ADD CONSTRAINT `user_game_data_ibfk_2` FOREIGN KEY (`privilege_group`) REFERENCES `privilege_groups`(`group_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `bans` ADD CONSTRAINT `ban_giver_id_constraint` FOREIGN KEY (`bann_giver_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `login_attempts` ADD CONSTRAINT `login_user_id_constraint` FOREIGN KEY (`login_user_id`) REFERENCES `users`(`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
