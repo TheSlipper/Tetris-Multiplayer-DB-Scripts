@@ -74,6 +74,8 @@ CREATE TABLE `TetrisMP`.`login_attempts` (
 	login_attempt_build VARCHAR(100) NOT NULL
 );
 
+USE `TetrisMP`;
+
 -- ALTER TABLE `TetrisMP`.`user_game_data`ADD FOREIGN KEY (user_id) REFERENCES `TetrisMP`.`users`(user_id);
 
 ALTER TABLE `TetrisMP`.`friends` ADD FOREIGN KEY (user_id_one) REFERENCES `TetrisMP`.`users`(user_id);

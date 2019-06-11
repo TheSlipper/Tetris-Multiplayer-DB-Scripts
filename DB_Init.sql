@@ -1,3 +1,5 @@
+USE `TetrisMP`;
+
 INSERT INTO `TetrisMP`.`users` VALUES (
 NULL,
  "slipper",
